@@ -1,0 +1,25 @@
+=== Logique modale : modèle de Kripke ===
+Exemple original : choix de plans dans un centre de secours.
+Logique utilisée : logique modale avec mondes possibles et relation d'accessibilité.
+Toolbox utilisée : TweetyProject Modal Logic pour analyser les formules modales, puis modèle de Kripke interne pour fixer les mondes du domaine.
+Validation syntaxique TweetyProject : vrai
+Mondes : W = {s0, planA, planB, controle}
+Relation R :
+- s0 → planA
+- s0 → planB
+- planA → controle
+- planB → controle
+Valuation :
+- energieSecours est vrai dans planA
+- reseauRadio est vrai dans planB
+Monde de départ : s0
+Requête : ◊energieSecours
+Résultat : vrai
+Requête : ◊reseauRadio
+Résultat : vrai
+Requête : (◊energieSecours ∧ ◊reseauRadio)
+Résultat : vrai
+Requête : ◊(energieSecours ∧ reseauRadio)
+Résultat : faux
+Conclusion symbolique : ¬◊(energieSecours ∧ reseauRadio)
+Interprétation : un plan peut rendre l'énergie de secours possible et un autre plan peut rendre le réseau radio possible, sans qu'un même plan rende les deux possibles simultanément.

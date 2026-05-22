@@ -1,0 +1,44 @@
+=== Réseaux sémantiques : centre hospitalier intelligent ===
+Représentation utilisée : concepts, individus, événements, contextes et arcs typés.
+Exemple original : gestion de robots médicaux, services et protocoles hospitaliers.
+Toolbox utilisée : structure Java en mémoire et export Graphviz DOT.
+
+1. Taxonomie et héritage
+Base : MediBot7 INSTANCE_DE RobotLivraison, RobotLivraison EST_UN RobotMedical, RobotMedical EST_UN AppareilMedical, AppareilMedical EST_UN RessourceHospitaliere.
+MediBot7 est un RobotMedical : vrai
+MediBot7 est un AppareilMedical : vrai
+MediBot7 est une RessourceHospitaliere : vrai
+MediBot7 est traçable : vrai
+MediBot7 a pour partie : Batterie, Capteurs, CompartimentSterile, Roues
+MediBot7 hérite de la propriété DistribuerMedicaments : vrai
+
+2. Exceptions et blocage d'inférence
+RobotLivraison possède typiquement la propriété DistribuerMedicaments.
+RobotEnPanne est un RobotLivraison : vrai
+RobotEnPanne possède localement la propriété négative Ne pas DistribuerMedicaments : vrai
+Conclusion : l'héritage de DistribuerMedicaments est bloqué pour RobotEnPanne : vrai
+
+3. Propagation de marqueurs
+Question : quels services du centre hospitalier utilisent le protocole TeleconsultationSecuree ?
+Réponses : Service de cardiologie, Cellule de télémédecine
+
+4. Actions et rôles sémantiques
+Livrer-1 : MediBot7 livre KitAnalyse à PatientNora.
+Livrer-2 : Ines livre DossierRadio à DrSamir.
+
+5. Contextes et partitions
+Contexte Croyance_ChefService : le chef de service croit une proposition négative.
+Proposition représentée : le chef croit que MediBot7 n'est pas disponible.
+Limite : le réseau représente la modalité, mais ne calcule pas la vérité modale.
+
+6. Traduction vers la logique du premier ordre
+- RobotLivraison(MediBot7)
+- is_a(RobotLivraison,RobotMedical)
+- propriete(RessourceHospitaliere,Tracable)
+- Agent(Livrer_1,MediBot7)
+- Objet(Livrer_1,KitAnalyse)
+- Destinataire(Livrer_1,PatientNora)
+
+7. Export Graphviz DOT
+Fichier généré : reseaux_semantiques/reseau_semantique.dot
+Interprétation : le fichier DOT permet de visualiser le réseau, sans nécessiter Graphviz pour compiler le projet.

@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://exemple.org/famille#"
+         xml:base="http://exemple.org/famille"
+         xmlns:fam="http://exemple.org/famille#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+    <owl:Ontology rdf:about="http://exemple.org/famille"/>
+
+    <owl:ObjectProperty rdf:about="#aEnfant"/>
+
+    <owl:Class rdf:about="#Personne"/>
+    <owl:Class rdf:about="#Feminin"/>
+
+    <owl:Class rdf:about="#Femme">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Personne"/>
+                    <rdf:Description rdf:about="#Feminin"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Homme">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Personne"/>
+                    <owl:Class>
+                        <owl:complementOf rdf:resource="#Femme"/>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Mere">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Femme"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#aEnfant"/>
+                        <owl:someValuesFrom rdf:resource="#Personne"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Pere">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Homme"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#aEnfant"/>
+                        <owl:someValuesFrom rdf:resource="#Personne"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Parent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Pere"/>
+                    <rdf:Description rdf:about="#Mere"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GrandMere">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Mere"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#aEnfant"/>
+                        <owl:someValuesFrom rdf:resource="#Parent"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MereSansFille">
+        <rdfs:subClassOf rdf:resource="#Mere"/>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Mere"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#aEnfant"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf rdf:resource="#Femme"/>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:NamedIndividual rdf:about="#Mary">
+        <rdf:type rdf:resource="#MereSansFille"/>
+        <fam:aEnfant rdf:resource="#Peter"/>
+        <fam:aEnfant rdf:resource="#Paul"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Peter">
+        <rdf:type rdf:resource="#Pere"/>
+        <fam:aEnfant rdf:resource="#Harry"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Paul"/>
+    <owl:NamedIndividual rdf:about="#Harry"/>
+</rdf:RDF>

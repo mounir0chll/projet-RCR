@@ -1,0 +1,20 @@
+=== Logique de description : ontologie familiale OWL ===
+Logique utilisée : logique de description avec TBox, ABox et inférence d'appartenance de classe.
+Toolbox utilisée : OWL API pour charger l'ontologie et HermiT pour l'inférence automatique quand il est disponible.
+Ontologie chargée.
+TBox (extrait) :
+- Mere ≡ Femme ⊓ ∃aEnfant.Personne
+- Parent ≡ Pere ⊔ Mere
+- GrandMere ≡ Mere ⊓ ∃aEnfant.Parent
+- MereSansFille ⊑ Mere
+ABox (extrait) :
+- MereSansFille(Mary)
+- Pere(Peter)
+- aEnfant(Mary, Peter)
+Raisonneur démarré.
+Requête : Ontologie ⊨ GrandMere(Mary) ?
+Résultat : vrai
+Mode de vérification : HermiT
+Interprétation : Mary est une Mere et elle a pour enfant Peter. Peter est un Pere, donc il est un Parent. Par conséquent, Mary est une GrandMere.
+
+Si HermiT est indisponible dans l'environnement d'exécution, la ligne du raisonneur peut indiquer une vérification OWL API de secours. Le résultat doit rester vrai si le fichier OWL contient bien les axiomes attendus.

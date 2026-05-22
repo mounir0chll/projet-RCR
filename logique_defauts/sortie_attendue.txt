@@ -1,0 +1,31 @@
+=== Logique des défauts : raisonnement non monotone ===
+Exemple original : supervision de drones de maintenance.
+Logique utilisée : logique des défauts avec règles normales A : B / B.
+Toolbox utilisée : TweetyProject Reiter's Default Logic pour charger et valider une théorie de défauts.
+Validation TweetyProject : théorie chargée = vrai, règles de défaut validées = 2
+
+Scénario 1 : droneAlpha est seulement connu comme drone de maintenance.
+Base stricte :
+- DroneMaintenance(droneAlpha)
+Défaut :
+- DroneMaintenance(x) : Operationnel(x) / Operationnel(x)
+Extension obtenue : {DroneMaintenance(droneAlpha), Operationnel(droneAlpha)}
+Requête : Operationnel(droneAlpha)
+Résultat : vrai
+
+Scénario 2 : droneAlpha est un drone endommagé.
+Base stricte :
+- DroneEndommage(droneAlpha)
+- DroneEndommage(x) → DroneMaintenance(x)
+Défauts :
+- DroneMaintenance(x) : Operationnel(x) / Operationnel(x)
+- DroneEndommage(x) : NonOperationnel(x) / NonOperationnel(x)
+Extension obtenue : {DroneEndommage(droneAlpha), DroneMaintenance(droneAlpha), NonOperationnel(droneAlpha)}
+Requête : DroneMaintenance(droneAlpha)
+Résultat : vrai
+Requête : Operationnel(droneAlpha)
+Résultat : faux (défaut général bloqué)
+Requête : NonOperationnel(droneAlpha)
+Résultat : vrai
+
+Interprétation : quand le drone est seulement connu comme drone de maintenance, le défaut général permet de conclure qu'il est opérationnel. Quand on ajoute qu'il est endommagé, l'exception bloque le défaut général et permet de conclure qu'il n'est pas opérationnel.

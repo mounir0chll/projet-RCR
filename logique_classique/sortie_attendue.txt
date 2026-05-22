@@ -1,0 +1,26 @@
+=== Logique classique : logique propositionnelle ===
+Exemple original : système d'alarme d'un laboratoire.
+Toolbox utilisée : TweetyProject Propositional Logic pour vérifier l'inférence, et fichiers CNF exploitables avec UBCSAT.
+Base de connaissances :
+- fumee → alarme
+- alarme → evacuation
+- fumee
+Requête testée : BC ⊨ evacuation
+Satisfiabilité de la base : vrai
+Test d'incohérence de {fumee, ¬fumee} : vrai
+Preuve par l'absurde : BC ∪ {¬evacuation} est insatisfiable : vrai
+Résultat : BC ⊨ evacuation : vrai
+Vérification TweetyProject : BC ⊨ evacuation = vrai
+Vérification TweetyProject : contradiction {fumee, ¬fumee} = vrai
+Vérification TweetyProject : BC ∪ {¬evacuation} insatisfiable = vrai
+Interprétation : si la fumée déclenche l'alarme, si l'alarme impose l'évacuation et si la fumée est observée, alors l'évacuation est une conséquence logique stricte.
+Exemple de valuation satisfaisant la base : {fumee=true, alarme=true, evacuation=true}
+
+=== Logique classique : petit exemple du premier ordre ===
+Exemple original : accès à une salle technique.
+Base de connaissances :
+- TechnicienCertifie(Nora)
+- ∀x(TechnicienCertifie(x) → AutoriseIntervention(x))
+Requête testée : BC ⊨ AutoriseIntervention(Nora)
+Résultat : vrai
+Interprétation : la règle universelle s'applique à l'individu Nora, donc Nora est autorisée à intervenir.
